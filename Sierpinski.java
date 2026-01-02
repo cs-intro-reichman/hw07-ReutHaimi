@@ -5,41 +5,34 @@ public class Sierpinski {
 		sierpinski(Integer.parseInt(args[0]));
 	}
 	
-	// Draws a Sierpinski triangle of depth n on the standard canvass
-    public static void sierpinski (int n) {
-        double x1 = 0.0, y1 = 0.0;                     
-        double x2 = 1.0, y2 = 0.0;                    
-        double x3 = 0.5, y3 = Math.sqrt(3) / 2;     
-        
-        StdDraw.setPenColor(StdDraw.BLACK);
-        StdDraw.filledPolygon(new double[]{x1, x2, x3}, new double[]{y1, y2, y3});
-        
-        sierpinski(n, x1, x2, x3, y1, y2, y3); 
-    }
-    
-    // Does the actual drawing, recursively.
-    private static void sierpinski(int n, double x1, double x2, double x3,
-                                         double y1, double y2, double y3) {
-        if (n == 0) {
-            return;
-        }
-
-        double x12 = (x1 + x2) / 2;
-        double y12 = (y1 + y2) / 2;
-        
-        double x23 = (x2 + x3) / 2;
-        double y23 = (y2 + y3) / 2;
-        
-        double x31 = (x3 + x1) / 2;
-        double y31 = (y3 + y1) / 2;
-
-        StdDraw.setPenColor(StdDraw.WHITE);
-        StdDraw.filledPolygon(new double[]{x12, x23, x31}, new double[]{y12, y23, y31});
-
-
-        sierpinski(n - 1, x1, x12, x31, y1, y12, y31);
-        sierpinski(n - 1, x12, x2, x23, y12, y2, y23);
-        sierpinski(n - 1, x31, x23, x3, y31, y23, y3);
-    }
-	
+	// Draws a Sierpinski triangle of depth n on the standard canvass.
+	public static void sierpinski (int n) {
+		//// Replace this comment with your code
+		StdDraw.setCanvasSize();
+		StdDraw.setXscale(0, 512);
+		StdDraw.setPenColor(0, 0, 0);
+		sierpinski(n, 0.0, 256.0, 512.0, 0.0, 512.0, 0.0);
 	}
+	
+	// Does the actual drawing, recursively.
+	private static void sierpinski(int n, double x1, double x2, double x3, double y1, double y2, double y3) {
+		//// Replace this comment with your code
+		if(n==0) return;
+		StdDraw.line(x1, y1, x2, y2);
+		StdDraw.line(x2, y2, x3, y3);
+		StdDraw.line(x3, y3, x1, y1);
+		double midX1 = (x1+x2) /2.0;
+		double midY1 = (y1+y2) /2.0;
+		double midX2 = (x2+x3) /2.0;
+		double midY2 = (y2+y3) /2.0;
+		double midX3 = (x3+x1) /2.0;
+		double midY3 = (y3+y1) /2.0;
+		sierpinski(n-1, x1, midX1, midX3, y1, midY1, midY3);
+		sierpinski(n-1, midX1, x2, midX2, midY1, y2, midY2);
+		sierpinski(n-1, midX3, midX2, x3, midY3, midY2, y3);
+	}
+}
+
+
+	
+
